@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Support | Surescripts Agentforce</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Surescripts<span>Partner</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="contact.html">Support</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" style="text-align: center; padding-top: 50px;">
+        <h2>Connect with our Integration Expert</h2>
+        <p>Our AI-powered Agentforce assistant is available 24/7 to help with Surescripts API questions and transaction troubleshooting.</p>
+        <img src="https://img.icons8.com/clouds/200/000000/medical-doctor.png" alt="Support AI">
+    </div>
+
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'en_US'; 
+                embeddedservice_bootstrap.init(
+                    '00Dg5000003u7V4',
+                    'test2_service_agent',
+                    'https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWtest2serviceagent1773054191688',
+                    {
+                        scrt2URL: 'https://orgfarm-4b6420968b-dev-ed.develop.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWtest2serviceagent1773054191688/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+</body>
+</html>
