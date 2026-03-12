@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | Surescripts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Surescripts<span>Partner</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="card" style="margin-top:50px;">
+            <h2>User Profile</h2>
+            <hr>
+            <div id="profile-details">
+                <p><strong>Name:</strong> <span id="u-name"></span></p>
+                <p><strong>Email:</strong> <span id="u-email"></span></p>
+                <p><strong>Role:</strong> <span id="u-role"></span></p>
+            </div>
+            <button onclick="logout()" style="margin-top:20px; color: red; background: none; border: 1px solid red; padding: 5px 15px; cursor: pointer;">Logout</button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Populate profile data
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (!user) {
+            window.location.href = 'login.html'; // Kick out if not logged in
+        } else {
+            document.getElementById('u-name').innerText = user.name;
+            document.getElementById('u-email').innerText = user.email;
+            document.getElementById('u-role').innerText = user.role;
+        }
+    </script>
+</body>
+</html>
