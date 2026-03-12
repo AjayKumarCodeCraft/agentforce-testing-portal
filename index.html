@@ -53,44 +53,48 @@
     <footer>&copy; 2026 Surescripts Implementation Portal</footer>
 	
     <script type='text/javascript'>
-	// Pull the logged-in user details from localStorage
-		const sessionData = localStorage.getItem('currentUser');
-		let userEmail = "";
-		
-		if (sessionData) {
-			const user = JSON.parse(sessionData);
-			userEmail = user.email; // This is your logged-in user's email
-		}
+    function initEmbeddedMessaging() {
+        try {
+            // 1. Get the logged-in user email
+            const sessionData = localStorage.getItem('currentUser');
+            let userEmail = "";
+            if (sessionData) {
+                const user = JSON.parse(sessionData);
+                userEmail = user.email;
+            }
 
-		window.addEventListener("onEmbeddedMessagingReady", () => {
-			embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
-				"_email": {
-					"value": userEmail,
-					"isEditableByEndUser": false // Changed to false to lock the field
-				}
-			});
-		});
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+            // 2. Configure Language
+            embeddedservice_bootstrap.settings.language = 'en_US';
 
-			embeddedservice_bootstrap.init(
-				'00Dg5000003u7V4',
-				'Service_Agent_Messaging_Channel',
-				'https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWServiceAgentMessagin1773035206894',
-				{
-					scrt2URL: 'https://orgfarm-4b6420968b-dev-ed.develop.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
+            // 3. Set up the Pre-chat Listener BEFORE calling init
+            window.addEventListener("onEmbeddedMessagingReady", () => {
+                embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                    "_email": {
+                        "value": userEmail,
+                        "isEditableByEndUser": false 
+                    }
+                });
+            });
+
+            // 4. Initialize the Messaging service
+            embeddedservice_bootstrap.init(
+                '00Dg5000003u7V4',
+                'Service_Agent_Messaging_Channel',
+                'https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWServiceAgentMessagin1773035206894',
+                {
+                    scrt2URL: 'https://orgfarm-4b6420968b-dev-ed.develop.my.salesforce-scrt.com'
+                }
+            );
+        } catch (err) {
+            console.error('Error loading Embedded Messaging: ', err);
+        }
+    };
 </script>
 <script type='text/javascript' src='https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWServiceAgentMessagin1773035206894/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 <script src="auth.js"></script>
 </body>
 </html>
+
 
 
 
