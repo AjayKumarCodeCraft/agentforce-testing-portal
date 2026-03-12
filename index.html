@@ -52,7 +52,26 @@
     </section>
 
     <footer>&copy; 2026 Surescripts Implementation Portal</footer>
+	
     <script type='text/javascript'>
+	// Pull the logged-in user details from localStorage
+            const sessionData = localStorage.getItem('currentUser');
+            let userEmail = "";
+            
+            if (sessionData) {
+                const user = JSON.parse(sessionData);
+                userEmail = user.email; // This is your logged-in user's email
+            }
+
+            embeddedservice_bootstrap.settings.language = 'en_US';
+	window.addEventListener("onEmbeddedMessagingReady", () => {
+		embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+			"_email": {
+				"value": userEmail,
+				"isEditableByEndUser": false // Changed to false to lock the field
+			}
+		});
+	});
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
@@ -74,6 +93,7 @@
 <script src="auth.js"></script>
 </body>
 </html>
+
 
 
 
