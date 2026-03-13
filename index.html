@@ -53,7 +53,7 @@
     <footer>&copy; 2026 Surescripts Implementation Portal</footer>
 	
 	<script type='text/javascript'>
-    // 1. Set the listener IMMEDIATELY so it's ready when the script loads
+    /*// 1. Set the listener IMMEDIATELY so it's ready when the script loads
     window.addEventListener("onEmbeddedMessagingReady", () => {
         const sessionData = localStorage.getItem('currentUser');
         let userEmail = "";
@@ -70,6 +70,22 @@
                 "isEditableByEndUser": false 
             }
         });
+    });*/
+	// Set the listener BEFORE anything else
+    window.addEventListener("onEmbeddedMessagingReady", () => {
+        console.log(">>> Salesforce Messaging is Ready. Attempting to pass hardcoded email...");
+        
+        try {
+            embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                "_email": {
+                    "value": "john@example.com",
+                    "isEditableByEndUser": false 
+                }
+            });
+            console.log(">>> setVisiblePrechatFields has been called.");
+        } catch (e) {
+            console.error(">>> Error calling Prechat API:", e);
+        }
     });
 
     function initEmbeddedMessaging() {
@@ -92,6 +108,7 @@
 <script src="auth.js"></script>
 </body>
 </html>
+
 
 
 
