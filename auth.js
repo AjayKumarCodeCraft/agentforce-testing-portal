@@ -5,8 +5,8 @@
 // 1. Mock Database - Sample User Details
 const USERS = [
     {
-        name: "John Doe",
-        email: "john@example.com",
+        name: "Ajay Kumar",
+        email: "testacc1@gmail.com",
         password: "password123",
         role: "Healthcare Integration Specialist",
         org: "Surescripts Partner Network"
