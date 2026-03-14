@@ -1,78 +1,58 @@
-/**
- * Surescripts Partner Portal - Authentication & Session Management
- */
-
-// 1. Mock Database - Sample User Details
 const USERS = [
     {
         name: "Ajay Kumar",
         email: "testacc1@gmail.com",
         password: "password123",
         role: "Healthcare Integration Specialist",
-        org: "Surescripts Partner Network"
+        org: "Surescripts Partner Network",
+        workbenchId: "WB-99821-X" // New Field
     }
 ];
 
-// 2. Login Function
 function login(email, password) {
-    // Find user in our "database"
     const user = USERS.find(u => u.email === email && u.password === password);
-
     if (user) {
-        // Store user object in localStorage (Session starts)
+        user.isGuest = false; // Mark as registered
         localStorage.setItem('currentUser', JSON.stringify(user));
-        
-        // Redirect to the index page
         window.location.href = 'index.html';
     } else {
-        // Show error if details don't match
         alert("Authentication Failed: Invalid email or password.");
     }
 }
 
-// 3. Logout Function
+// New Guest Function
+function loginAsGuest() {
+    const guestUser = {
+        name: "Guest User",
+        isGuest: true
+    };
+    localStorage.setItem('currentUser', JSON.stringify(guestUser));
+    window.location.href = 'index.html';
+}
+
 function logout() {
-    // Clear user session
     localStorage.removeItem('currentUser');
-    
-    // Redirect to login page
     window.location.href = 'login.html';
 }
 
-// 4. Navigation UI Handler 
-// This runs on every page to show the Profile Logo/Name if logged in
+// UI Handler for Nav
 document.addEventListener('DOMContentLoaded', () => {
     const sessionData = localStorage.getItem('currentUser');
     const navLinks = document.querySelector('.nav-links');
 
     if (sessionData && navLinks) {
         const user = JSON.parse(sessionData);
-        
-        // Create the Profile List Item
         const profileLi = document.createElement('li');
-        profileLi.style.marginLeft = "15px"; // Add some spacing
+        profileLi.style.marginLeft = "15px";
         
-        // Add the Profile Link with an Icon
+        // Use a generic "Guest" label if they are a guest
+        const displayName = user.isGuest ? "Guest Access" : `👤 ${user.name}`;
+        
         profileLi.innerHTML = `
-            <a href="profile.html" style="
-                background: #007cba; 
-                color: white; 
-                padding: 8px 15px; 
-                border-radius: 5px; 
-                font-weight: bold;
-                text-decoration: none;
-            ">
-                👤 ${user.name}
+            <a href="profile.html" style="background: #007cba; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none;">
+                ${displayName}
             </a>
         `;
-        
-        // Append to the existing navigation list
         navLinks.appendChild(profileLi);
-        
-        // If there was a "Login" link in the original HTML, hide it
-        const existingLoginLink = document.getElementById('nav-login');
-        if (existingLoginLink) {
-            existingLoginLink.style.display = 'none';
-        }
     }
 });
