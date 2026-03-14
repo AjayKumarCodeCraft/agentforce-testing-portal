@@ -1,3 +1,8 @@
+/**
+ * Surescripts Partner Portal - Authentication & Session Management
+ */
+
+// 1. Mock Database - Added Workbench Account ID
 const USERS = [
     {
         name: "Ajay Kumar",
@@ -5,37 +10,40 @@ const USERS = [
         password: "password123",
         role: "Healthcare Integration Specialist",
         org: "Surescripts Partner Network",
-        workbenchId: "WB-99821-X" // New Field
+        workbenchId: "WB-PRD-2026-099" 
     }
 ];
 
+// 2. Standard Login Function
 function login(email, password) {
     const user = USERS.find(u => u.email === email && u.password === password);
+
     if (user) {
-        user.isGuest = false; // Mark as registered
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        const sessionUser = { ...user, isGuest: false };
+        localStorage.setItem('currentUser', JSON.stringify(sessionUser));
         window.location.href = 'index.html';
     } else {
         alert("Authentication Failed: Invalid email or password.");
     }
 }
 
-// New Guest Function
+// 3. New Guest Login Function
 function loginAsGuest() {
     const guestUser = {
-        name: "Guest User",
+        name: "Guest",
         isGuest: true
     };
     localStorage.setItem('currentUser', JSON.stringify(guestUser));
     window.location.href = 'index.html';
 }
 
+// 4. Logout Function
 function logout() {
     localStorage.removeItem('currentUser');
     window.location.href = 'login.html';
 }
 
-// UI Handler for Nav
+// 5. Navigation UI Handler 
 document.addEventListener('DOMContentLoaded', () => {
     const sessionData = localStorage.getItem('currentUser');
     const navLinks = document.querySelector('.nav-links');
@@ -45,12 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const profileLi = document.createElement('li');
         profileLi.style.marginLeft = "15px";
         
-        // Use a generic "Guest" label if they are a guest
-        const displayName = user.isGuest ? "Guest Access" : `👤 ${user.name}`;
+        // Show "Guest Access" or the User's Name
+        const label = user.isGuest ? "Guest Access" : `👤 ${user.name}`;
         
         profileLi.innerHTML = `
-            <a href="profile.html" style="background: #007cba; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none;">
-                ${displayName}
+            <a href="profile.html" style="
+                background: #007cba; 
+                color: white; 
+                padding: 8px 15px; 
+                border-radius: 5px; 
+                font-weight: bold;
+                text-decoration: none;
+            ">
+                ${label}
             </a>
         `;
         navLinks.appendChild(profileLi);
