@@ -1,28 +1,41 @@
-<div class="container" style="max-width: 400px; margin-top: 100px;">
-    <div class="card">
-        <h2>Login to Workbench</h2>
-        <form id="loginForm">
-            <input type="email" id="email" placeholder="Email" required style="width:100%; margin-bottom:10px; padding:10px;">
-            <input type="password" id="password" placeholder="Password" required style="width:100%; margin-bottom:10px; padding:10px;">
-            <button type="submit" style="background:#007cba; color:white; border:none; width:100%; padding:10px; cursor:pointer; border-radius:4px;">Login</button>
-        </form>
-        <div style="text-align: center; margin-top: 15px;">
-            <span style="color: #666;">or</span><br>
-            <a href="#" id="guestLink" style="color: #007cba; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Continue as Guest</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Surescripts Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 400px; margin-top: 100px;">
+        <div class="card">
+            <h2 style="text-align: center; margin-bottom: 20px;">Login to Workbench</h2>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required style="width:100%; margin-bottom:10px; padding:10px; border: 1px solid #ccc; border-radius: 4px;">
+                <input type="password" id="password" placeholder="Password" required style="width:100%; margin-bottom:15px; padding:10px; border: 1px solid #ccc; border-radius: 4px;">
+                <button type="submit" style="background:#007cba; color:white; border:none; width:100%; padding:12px; cursor:pointer; font-weight: bold; border-radius: 4px;">Login</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">Don't have an account?</p>
+                <a href="#" id="guestLink" style="color: #007cba; text-decoration: none; font-weight: bold;">Continue as Guest</a>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="auth.js"></script>
-<script>
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        login(document.getElementById('email').value, document.getElementById('password').value);
-    });
+    <script src="auth.js"></script>
+    <script>
+        // Handle Registered Login
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            login(document.getElementById('email').value, document.getElementById('password').value);
+        });
 
-    // Guest handler
-    document.getElementById('guestLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        loginAsGuest();
-    });
-</script>
+        // Handle Guest Login
+        document.getElementById('guestLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            loginAsGuest();
+        });
+    </script>
+</body>
+</html>
