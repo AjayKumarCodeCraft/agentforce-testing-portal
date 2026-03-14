@@ -2,9 +2,8 @@
 (function() {
     const currentUser = localStorage.getItem('currentUser');
     
-    // If no user is found in storage, redirect to login immediately
+    // If no user session (Guest or Registered) exists, redirect to login
     if (!currentUser) {
-        // Change 'login.html' to the actual path if it's in a subfolder
         window.location.href = 'login.html';
     }
 })();
