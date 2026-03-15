@@ -95,27 +95,17 @@
     //         }
     //     }
     // });
-	window.addEventListener("onEmbeddedMessagingReady", e => {
-		console.log("Received the onEmbeddedMessagingReady event…");
-		
-	  embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-	    // List the pre-chat field names with the value and whether
-	    // it's editable in the pre-chat form.
-	    "email": {
-	      "value": "testacc1@gmail.com",
-	      "isEditableByEndUser": false
-	    },
-		"subject": {
-	      "value": "testacc1@gmail.com",
-	      "isEditableByEndUser": false
-	    },
-		"oliProductId": {
-	      "value": "00kg5000000jKXFAA2",
-	      "isEditableByEndUser": false
-	    }
+	window.addEventListener("onEmbeddedMessagingReady", () => {
+	    console.log("Received the onEmbeddedMessagingReady event…");
 	    
-	  });
+	    // Correct syntax for hidden fields (simple key-value pairs)
+	    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+	        "email": "testacc1@gmail.com",
+	        "subject": "testing hidden subject",
+	        "oliProductId": "00kg5000000jKXFAA2"
+	    });
 	});
+		
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
