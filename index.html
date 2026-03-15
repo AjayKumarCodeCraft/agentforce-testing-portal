@@ -53,49 +53,67 @@
     <footer>&copy; 2026 Surescripts Implementation Portal</footer>
 	
 	<script type='text/javascript'>
-    // Set the listener BEFORE anything else
-    window.addEventListener("onEmbeddedMessagingReady", () => {
-        console.log(">>> Salesforce Messaging is Ready. Checking user session...");
+    // // Set the listener BEFORE anything else
+    // window.addEventListener("onEmbeddedMessagingReady", () => {
+    //     console.log(">>> Salesforce Messaging is Ready. Checking user session...");
         
-        // Retrieve session data from localStorage
-        const sessionData = localStorage.getItem('currentUser');
+    //     // Retrieve session data from localStorage
+    //     const sessionData = localStorage.getItem('currentUser');
         
-        if (sessionData) {
-            const user = JSON.parse(sessionData);
+    //     if (sessionData) {
+    //         const user = JSON.parse(sessionData);
 
-            // Requirement: Only pass data if the user is LOGGED IN (not a guest)
-            if (user.isGuest === false) {
-                console.log(">>> Logged-in user detected. Passing Workbench details to Salesforce.");
+    //         // Requirement: Only pass data if the user is LOGGED IN (not a guest)
+    //         if (user.isGuest === false) {
+    //             console.log(">>> Logged-in user detected. Passing Workbench details to Salesforce.");
                 
-                try {
-                    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-                        "_email": { 
-                            "value": user.email, 
-                            "isEditableByEndUser": false 
-                        },
-                        "_subject": { 
-                            "value": "Workbench Support Request", 
-                            "isEditableByEndUser": true 
-                        }
-							//,
-                        // // Ensure the API name "Workbench_Account_Id" matches exactly in your Salesforce Org
-                        // "Workbench_Account_Id": { 
-                        //     "value": user.workbenchId, 
-                        //     "isEditableByEndUser": false 
-                        // }
-                    });
-                    console.log(">>> Pre-chat fields populated for Workbench User.");
-                } catch (e) {
-                    console.error(">>> Error calling Prechat API:", e);
-                }
-            } else {
-                console.log(">>> Guest User detected. No pre-chat data passed.");
-                // For guests, we don't call setVisiblePrechatFields, 
-                // so the chat will either show blank fields or your default pre-chat setup.
-            }
-        }
-    });
-	
+    //             try {
+    //                 embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+    //                     "_email": { 
+    //                         "value": user.email, 
+    //                         "isEditableByEndUser": false 
+    //                     },
+    //                     "_subject": { 
+    //                         "value": "Workbench Support Request", 
+    //                         "isEditableByEndUser": true 
+    //                     }
+				// 			//,
+    //                     // // Ensure the API name "Workbench_Account_Id" matches exactly in your Salesforce Org
+    //                     // "Workbench_Account_Id": { 
+    //                     //     "value": user.workbenchId, 
+    //                     //     "isEditableByEndUser": false 
+    //                     // }
+    //                 });
+    //                 console.log(">>> Pre-chat fields populated for Workbench User.");
+    //             } catch (e) {
+    //                 console.error(">>> Error calling Prechat API:", e);
+    //             }
+    //         } else {
+    //             console.log(">>> Guest User detected. No pre-chat data passed.");
+    //             // For guests, we don't call setVisiblePrechatFields, 
+    //             // so the chat will either show blank fields or your default pre-chat setup.
+    //         }
+    //     }
+    // });
+	window.addEventListener("onEmbeddedMessagingReady", e => {
+	  embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+	    // List the pre-chat field names with the value and whether
+	    // it's editable in the pre-chat form.
+	    "_email": {
+	      "value": "testacc1@gmail.com",
+	      "isEditableByEndUser": false
+	    },
+		"_subject": {
+	      "value": "testacc1@gmail.com",
+	      "isEditableByEndUser": false
+	    },
+		"oliProductId": {
+	      "value": "00kg5000000jKXFAA2",
+	      "isEditableByEndUser": false
+	    }
+	    
+	  });
+	});
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
