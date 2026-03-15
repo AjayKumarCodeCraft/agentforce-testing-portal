@@ -68,7 +68,7 @@
                 console.log(">>> Logged-in user detected. Passing Workbench details to Salesforce.");
                 
                 try {
-                    embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
                         "_email": { 
                             "value": user.email, 
                             "isEditableByEndUser": false 
