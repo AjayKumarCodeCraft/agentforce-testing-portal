@@ -53,76 +53,37 @@
     <footer>&copy; 2026 Surescripts Implementation Portal</footer>
 	
 	<script type='text/javascript'>
-    // // Set the listener BEFORE anything else
-    // window.addEventListener("onEmbeddedMessagingReady", () => {
-    //     console.log(">>> Salesforce Messaging is Ready. Checking user session...");
-        
-    //     // Retrieve session data from localStorage
-    //     const sessionData = localStorage.getItem('currentUser');
-        
-    //     if (sessionData) {
-    //         const user = JSON.parse(sessionData);
-
-    //         // Requirement: Only pass data if the user is LOGGED IN (not a guest)
-    //         if (user.isGuest === false) {
-    //             console.log(">>> Logged-in user detected. Passing Workbench details to Salesforce.");
-                
-    //             try {
-    //                 embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-    //                     "_email": { 
-    //                         "value": user.email, 
-    //                         "isEditableByEndUser": false 
-    //                     },
-    //                     "_subject": { 
-    //                         "value": "Workbench Support Request", 
-    //                         "isEditableByEndUser": true 
-    //                     }
-				// 			//,
-    //                     // // Ensure the API name "Workbench_Account_Id" matches exactly in your Salesforce Org
-    //                     // "Workbench_Account_Id": { 
-    //                     //     "value": user.workbenchId, 
-    //                     //     "isEditableByEndUser": false 
-    //                     // }
-    //                 });
-    //                 console.log(">>> Pre-chat fields populated for Workbench User.");
-    //             } catch (e) {
-    //                 console.error(">>> Error calling Prechat API:", e);
-    //             }
-    //         } else {
-    //             console.log(">>> Guest User detected. No pre-chat data passed.");
-    //             // For guests, we don't call setVisiblePrechatFields, 
-    //             // so the chat will either show blank fields or your default pre-chat setup.
-    //         }
-    //     }
-    // });
 	window.addEventListener("onEmbeddedMessagingReady", () => {
-	    console.log("Received the onEmbeddedMessagingReady event…");
-	    
-	    // Correct syntax for hidden fields (simple key-value pairs)
-	    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
-	        "email": "testacc1@gmail.com",
-	        "subject": "testing hidden subject"
+        console.log(">>> Salesforce Messaging is Ready. Attempting to pass hardcoded email...");
+        
+	        try {
+	            embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+				    "_email": { "value": "testacc1@gmail.com", "isEditableByEndUser": false },
+				    "_subject": { "value": "Testing Connection", "isEditableByEndUser": true }
+				});
+	            console.log(">>> setVisiblePrechatFields has been called.");
+	        } catch (e) {
+	            console.error(">>> Error calling Prechat API:", e);
+	        }
 	    });
-	});
-		
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-
-			embeddedservice_bootstrap.init(
-				'00Dg5000003u7V4',
-				'Test_Service_Agent_Messaging',
-				'https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWTestServiceAgentMes1773515007457',
-				{
-					scrt2URL: 'https://orgfarm-4b6420968b-dev-ed.develop.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
-</script>
-<script type='text/javascript' src='https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWTestServiceAgentMes1773515007457/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+	
+	    function initEmbeddedMessaging() {
+	        try {
+	            embeddedservice_bootstrap.settings.language = 'en_US';
+	            embeddedservice_bootstrap.init(
+	                '00Dg5000003u7V4',
+	                'Service_Agent_Messaging_Channel',
+	                'https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWServiceAgentMessagin1773035206894',
+	                {
+	                    scrt2URL: 'https://orgfarm-4b6420968b-dev-ed.develop.my.salesforce-scrt.com'
+	                }
+	            );
+	        } catch (err) {
+	            console.error('Error loading Embedded Messaging: ', err);
+	        }
+	    };
+	</script>
+	<script type='text/javascript' src='https://orgfarm-4b6420968b-dev-ed.develop.my.site.com/ESWServiceAgentMessagin1773035206894/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 <script src="auth.js"></script>
 </body>
 </html>
