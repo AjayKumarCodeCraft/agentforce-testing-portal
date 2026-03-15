@@ -96,14 +96,16 @@
     //     }
     // });
 	window.addEventListener("onEmbeddedMessagingReady", e => {
-	  embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+		console.log("Received the onEmbeddedMessagingReady event…");
+		
+	  embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
 	    // List the pre-chat field names with the value and whether
 	    // it's editable in the pre-chat form.
-	    "_email": {
+	    "email": {
 	      "value": "testacc1@gmail.com",
 	      "isEditableByEndUser": false
 	    },
-		"_subject": {
+		"subject": {
 	      "value": "testacc1@gmail.com",
 	      "isEditableByEndUser": false
 	    },
